@@ -1,0 +1,27 @@
+package ifes.leds.desafio_backend.service;
+
+import ifes.leds.desafio_backend.domain.Concurso;
+import ifes.leds.desafio_backend.exceptions.ObjetoNaoEncontradoException;
+import ifes.leds.desafio_backend.repository.ConcursoRepository;
+import org.springframework.stereotype.Service;
+
+@Service
+public class ConcursoService
+{
+    private final ConcursoRepository concursoRepository;
+
+    public ConcursoService(ConcursoRepository concursoRepository)
+    {
+        this.concursoRepository = concursoRepository;
+    }
+
+    public void salvaConcurso(Concurso concurso)
+    {
+        concursoRepository.save(concurso);
+    }
+
+    public Concurso buscaConcursoPorCodigo(String codigo)
+    {
+        return concursoRepository.findByCodigo(codigo).orElseThrow(() -> new ObjetoNaoEncontradoException("Nenhum concurso com esse codigo foi encontrado"));
+    }
+}
