@@ -9,6 +9,12 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    
+    # Como o projeto Java está dentro da pasta desafio-backend,
+    # configuramos essa pasta como o diretório padrão para rodar os comandos
+    defaults:
+      run:
+        working-directory: ./desafio-backend
 
     # Cria um container do PostgreSQL exclusivamente para rodar os testes
     services:
