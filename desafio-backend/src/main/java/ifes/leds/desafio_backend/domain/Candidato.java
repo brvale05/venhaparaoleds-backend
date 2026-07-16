@@ -26,14 +26,27 @@ public class Candidato
 
     private List<String> profissoes = new ArrayList<>();
 
-    public Candidato(String nome, LocalDate dtNasc, String cpf)
+    public Candidato(String nome, LocalDate dtNasc, String cpf, List<String>profissoes)
     {
         this.nome = nome;
         this.dtNasc = dtNasc;
         this.cpf = cpf;
+        this.profissoes = profissoes;
     }
 
     public Candidato()
     {
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Candidato{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", dtNasc=" + dtNasc +
+                ", cpf='" + cpf + '\'' +
+                ", profissoes=" + profissoes +
+                '}';
     }
 }

@@ -1,5 +1,8 @@
 package ifes.leds.desafio_backend;
 
+import ifes.leds.desafio_backend.domain.Candidato;
+import ifes.leds.desafio_backend.repository.CandidatoRepository;
+import ifes.leds.desafio_backend.service.CandidatoService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -16,8 +19,11 @@ import java.util.List;
 @SpringBootApplication
 public class App implements CommandLineRunner
 {
-    public App()
+    private CandidatoService candidatoService;
+
+    public App(CandidatoService candidatoService)
     {
+        this.candidatoService = candidatoService;
     }
 
     public static void main(String[] args)
@@ -28,10 +34,15 @@ public class App implements CommandLineRunner
     @Override
     public void run(String... args) throws Exception
     {
-        String candidatosPath = "../candidatos.txt";
-        String concursoPath = "../concursos.txt";
+        leCandidatos();
 
-        try(BufferedReader br = new BufferedReader(new FileReader(candidatosPath)))
+    }
+
+    private void leCandidatos()
+    {
+        String path = "../candidatos.txt";
+
+        try(BufferedReader br = new BufferedReader(new FileReader(path)))
         {
             String line = br.readLine();
 
@@ -42,23 +53,23 @@ public class App implements CommandLineRunner
                 String[] lineSplit = line.split(",", 4);
 
                 String nome = lineSplit[0];
-                String dtNasc = lineSplit[1];
-                String cpf = lineSplit[2];
-                String profissoes = lineSplit[3];
+                String dtNascBruta = lineSplit[1];
+                String cpf = lineSplit[2].replaceAll("[^0-9]", "");
+                String profissoesBrutas = lineSplit[3];
 
-                String profissoesAtualizadas = profissoes.replaceAll("[\"\\[\\]]", "");
+                String profissoesFormatadas = profissoesBrutas.replaceAll("[\"\\[\\]]", "");
 
-                List<String> profissoesList = Arrays.asList(profissoesAtualizadas.split(","));
+                List<String> profissoesList = Arrays.asList(profissoesFormatadas.split(","));
 
-                List<String> profissoesListAtualizadas = profissoesList.stream().map(String::trim).toList();
+                List<String> profissoesListFormatadas = profissoesList.stream().map(String::trim).toList();
 
                 DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-                LocalDate dataNasc = LocalDate.parse(dtNasc, formato);
+                LocalDate dtNascFormatada = LocalDate.parse(dtNascBruta, formato);
 
-                System.out.println(dataNasc);
+                criaCandidatoNoBanco(nome, dtNascFormatada, cpf, profissoesListFormatadas);
 
-                System.out.println(nome + " " + dtNasc + " " + cpf + " " + profissoesListAtualizadas);
+                System.out.println(candidatoService.buscaCandidatoPorCpf(cpf).toString());
 
                 break;
             }
@@ -67,5 +78,12 @@ public class App implements CommandLineRunner
         {
             e.printStackTrace();
         }
+    }
+
+    private void criaCandidatoNoBanco(String nome, LocalDate dtNasc, String cpf, List<String> profissoes)
+    {
+        Candidato candidato = new Candidato(nome, dtNasc, cpf, profissoes);
+
+        this.candidatoService.salvaCandidato(candidato);
     }
 }
