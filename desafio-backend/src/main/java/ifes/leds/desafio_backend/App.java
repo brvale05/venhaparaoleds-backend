@@ -1,8 +1,10 @@
 package ifes.leds.desafio_backend;
 
 import ifes.leds.desafio_backend.domain.Candidato;
+import ifes.leds.desafio_backend.domain.Concurso;
 import ifes.leds.desafio_backend.repository.CandidatoRepository;
 import ifes.leds.desafio_backend.service.CandidatoService;
+import ifes.leds.desafio_backend.service.ConcursoService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,10 +23,12 @@ import java.util.List;
 public class App implements CommandLineRunner
 {
     private CandidatoService candidatoService;
+    private ConcursoService concursoService;
 
-    public App(CandidatoService candidatoService)
+    public App(CandidatoService candidatoService, ConcursoService concursoService)
     {
         this.candidatoService = candidatoService;
+        this.concursoService = concursoService;
     }
 
     public static void main(String[] args)
@@ -34,8 +39,53 @@ public class App implements CommandLineRunner
     @Override
     public void run(String... args) throws Exception
     {
-        leCandidatos();
+        //leCandidatos();
+        leConcursos();
+    }
 
+    private void leConcursos()
+    {
+        String path = "../concursos.txt";
+
+        try(BufferedReader br = new BufferedReader(new FileReader(path)))
+        {
+            String line = br.readLine();
+
+            while (line != null)
+            {
+                line = br.readLine();
+
+                String[] lineSplit = line.split(",", 4);
+
+                String orgao = lineSplit[0];
+                String edital = lineSplit[1];
+                String codigo = lineSplit[2];
+                String vagasBrutas = lineSplit[3];
+
+                String vagasFormatadas = vagasBrutas.replaceAll("[\"\\[\\]]", "");
+
+                List<String> vagasList = Arrays.asList(vagasFormatadas.split(","));
+
+                List<String> vagasListFormatadas = vagasList.stream().map(String::trim).toList();
+
+                criaConcursoNoBanco(orgao, edital, codigo, vagasListFormatadas);
+
+                System.out.println(concursoService.buscaConcursoPorCodigo(codigo).toString());
+
+                break;
+            }
+
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private void criaConcursoNoBanco(String orgao, String edital, String codigo, List<String> vagas)
+    {
+        Concurso concurso = new Concurso(orgao, edital, codigo, vagas);
+
+        this.concursoService.salvaConcurso(concurso);
     }
 
     private void leCandidatos()
@@ -68,8 +118,6 @@ public class App implements CommandLineRunner
                 LocalDate dtNascFormatada = LocalDate.parse(dtNascBruta, formato);
 
                 criaCandidatoNoBanco(nome, dtNascFormatada, cpf, profissoesListFormatadas);
-
-                System.out.println(candidatoService.buscaCandidatoPorCpf(cpf).toString());
 
                 break;
             }

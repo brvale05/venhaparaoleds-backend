@@ -20,20 +20,33 @@ public class Concurso
 
     private String orgao;
 
-    private YearMonth dataEdital;
+    private String edital;
 
     private String codigo;
 
     private List<String> vagas = new ArrayList<>();
 
-    public Concurso(String orgao, YearMonth dataEdital, String codigo)
+    public Concurso(String orgao, String edital, String codigo, List<String> vagas)
     {
         this.orgao = orgao;
-        this.dataEdital = dataEdital;
+        this.edital = edital;
         this.codigo = codigo;
+        this.vagas = vagas;
     }
 
     public Concurso()
     {
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Concurso{" +
+                "id=" + id +
+                ", orgao='" + orgao + '\'' +
+                ", edital='" + edital + '\'' +
+                ", codigo='" + codigo + '\'' +
+                ", vagas=" + vagas +
+                '}';
     }
 }
