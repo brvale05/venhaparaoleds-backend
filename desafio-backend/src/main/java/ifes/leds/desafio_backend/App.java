@@ -13,12 +13,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 @SpringBootApplication
 public class App implements CommandLineRunner
@@ -46,7 +43,7 @@ public class App implements CommandLineRunner
 
     private void leConcursos()
     {
-        String path = "../concursos.txt";
+        String path = "concursos.txt";
 
         try(BufferedReader br = new BufferedReader(new FileReader(path)))
         {
@@ -90,7 +87,7 @@ public class App implements CommandLineRunner
 
     private void leCandidatos()
     {
-        String path = "../candidatos.txt";
+        String path = "candidatos.txt";
 
         try(BufferedReader br = new BufferedReader(new FileReader(path)))
         {

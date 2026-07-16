@@ -38,10 +38,4 @@ public class AppController
 
         return this.candidatoService.buscaCandidatosPorPerfilConcurso(concurso.getVagas());
     }
-
-    @GetMapping("teste/{nome}")
-    public String teste(@PathVariable String nome)
-    {
-        return nome;
-    }
 }

@@ -22,20 +22,21 @@ public class ConcursoService
 
     public void salvaConcurso(Concurso concurso)
     {
-        if(!concursoRepository.existsByCodigo(concurso.getCodigo()))
+        if(this.concursoRepository.findByCodigo(concurso.getCodigo()).isEmpty())
         {
-            concursoRepository.save(concurso);
+            this.concursoRepository.save(concurso);
         }
+
     }
 
     public Concurso buscaConcursoPorCodigo(String codigo)
     {
-        return concursoRepository.findFirstByCodigo(codigo).orElseThrow(() -> new ObjetoNaoEncontradoException("Nenhum concurso com esse codigo foi encontrado"));
+        return concursoRepository.findByCodigo(codigo).orElseThrow(() -> new ObjetoNaoEncontradoException("Nenhum concurso com esse codigo foi encontrado"));
     }
 
     public List<ConcursoResponseDTO> buscaConcursosPorPerfilCandidato(List<String> vagasBuscadas)
     {
-        return this.concursoRepository.findTop10DistinctByVagasIn(vagasBuscadas)
+        return this.concursoRepository.findDistinctByVagasIn(vagasBuscadas)
                 .stream()
                 .map(ConcursoService::toResponseDTO)
                 .toList();

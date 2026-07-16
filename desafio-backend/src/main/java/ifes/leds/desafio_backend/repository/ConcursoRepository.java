@@ -12,9 +12,9 @@ import java.util.Optional;
 @Repository
 public interface ConcursoRepository extends JpaRepository<Concurso, Long>
 {
-    Optional<Concurso> findFirstByCodigo(String codigo);
+    Optional<Concurso> findByCodigo(String codigo);
 
     boolean existsByCodigo(String codigo);
 
-    List<Concurso> findTop10DistinctByVagasIn(List<String> vagasBuscadas);
+    List<Concurso> findDistinctByVagasIn(List<String> vagasBuscadas);
 }

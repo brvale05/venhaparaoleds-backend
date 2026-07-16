@@ -7,7 +7,10 @@ import ifes.leds.desafio_backend.exceptions.ObjetoNaoEncontradoException;
 import ifes.leds.desafio_backend.repository.CandidatoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class CandidatoService
@@ -21,20 +24,21 @@ public class CandidatoService
 
     public void salvaCandidato(Candidato candidato)
     {
-        if(!candidatoRepository.existsByCpf(candidato.getCpf()))
+        if (this.candidatoRepository.findByCpf(candidato.getCpf()).isEmpty())
         {
-            candidatoRepository.save(candidato);
+            this.candidatoRepository.save(candidato);
         }
+
     }
 
     public Candidato buscaCandidatoPorCpf(String cpf)
     {
-        return candidatoRepository.findFirstByCpf(cpf).orElseThrow(() -> new ObjetoNaoEncontradoException("Nenhum candidato com esse CPF foi encontrado"));
+        return candidatoRepository.findByCpf(cpf).orElseThrow(() -> new ObjetoNaoEncontradoException("Nenhum candidato com esse CPF foi encontrado"));
     }
 
     public List<CandidatoResponseDTO> buscaCandidatosPorPerfilConcurso(List<String> profissoesBuscadas)
     {
-        return candidatoRepository.findTop10DistinctByProfissoesIn(profissoesBuscadas)
+        return candidatoRepository.findDistinctByProfissoesIn(profissoesBuscadas)
                 .stream()
                 .map(CandidatoService::toResponse)
                 .toList();
