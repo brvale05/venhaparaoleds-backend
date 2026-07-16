@@ -42,9 +42,6 @@ public class App implements CommandLineRunner
     {
         leCandidatos();
         leConcursos();
-
-        System.out.println(this.candidatoService.buscaCandidatosPorPerfilConcurso(List.of("marceneiro")));
-        System.out.println(this.concursoService.buscaConcursosPorPerfilCandidato(List.of("engenheiro civil")));
     }
 
     private void leConcursos()
@@ -53,12 +50,13 @@ public class App implements CommandLineRunner
 
         try(BufferedReader br = new BufferedReader(new FileReader(path)))
         {
+            //Joga fora primeira linha
             String line = br.readLine();
+
+            line = br.readLine();
 
             while (line != null)
             {
-                line = br.readLine();
-
                 String[] lineSplit = line.split(",", 4);
 
                 String orgao = lineSplit[0];
@@ -74,7 +72,7 @@ public class App implements CommandLineRunner
 
                 criaConcursoNoBanco(orgao, edital, codigo, vagasListFormatadas);
 
-                break;
+                line = br.readLine();
             }
 
         } catch (IOException e)
@@ -98,10 +96,10 @@ public class App implements CommandLineRunner
         {
             String line = br.readLine();
 
+            line = br.readLine();
+
             while (line != null)
             {
-                line = br.readLine();
-
                 String[] lineSplit = line.split(",", 4);
 
                 String nome = lineSplit[0];
@@ -121,7 +119,8 @@ public class App implements CommandLineRunner
 
                 criaCandidatoNoBanco(nome, dtNascFormatada, cpf, profissoesListFormatadas);
 
-                break;
+                line = br.readLine();
+
             }
 
         } catch (IOException e)

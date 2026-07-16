@@ -10,7 +10,9 @@ import java.util.Optional;
 @Repository
 public interface CandidatoRepository extends JpaRepository<Candidato, Long>
 {
-    Optional<Candidato> findByCpf(String cpf);
+    Optional<Candidato> findFirstByCpf(String cpf);
 
-    List<Candidato> findDistinctByProfissoesIn(List<String> profissoesBuscadas);
+    boolean existsByCpf(String cpf);
+
+    List<Candidato> findTop10DistinctByProfissoesIn(List<String> profissoesBuscadas);
 }
