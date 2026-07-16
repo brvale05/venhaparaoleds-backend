@@ -5,6 +5,8 @@ import ifes.leds.desafio_backend.exceptions.ObjetoNaoEncontradoException;
 import ifes.leds.desafio_backend.repository.ConcursoRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ConcursoService
 {
@@ -23,5 +25,10 @@ public class ConcursoService
     public Concurso buscaConcursoPorCodigo(String codigo)
     {
         return concursoRepository.findByCodigo(codigo).orElseThrow(() -> new ObjetoNaoEncontradoException("Nenhum concurso com esse codigo foi encontrado"));
+    }
+
+    public List<Concurso> buscaConcursosPorPerfilCandidato(List<String> profissoes)
+    {
+        return this.concursoRepository.findDistinctByVagasIn(profissoes);
     }
 }

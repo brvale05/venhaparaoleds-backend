@@ -24,7 +24,8 @@ public class Concurso
 
     private String codigo;
 
-    private List<String> vagas = new ArrayList<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> vagas;
 
     public Concurso(String orgao, String edital, String codigo, List<String> vagas)
     {

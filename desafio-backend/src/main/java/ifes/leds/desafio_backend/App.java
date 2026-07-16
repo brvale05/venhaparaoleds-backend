@@ -18,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 @SpringBootApplication
 public class App implements CommandLineRunner
@@ -39,7 +40,7 @@ public class App implements CommandLineRunner
     @Override
     public void run(String... args) throws Exception
     {
-        //leCandidatos();
+        leCandidatos();
         leConcursos();
     }
 
@@ -69,8 +70,6 @@ public class App implements CommandLineRunner
                 List<String> vagasListFormatadas = vagasList.stream().map(String::trim).toList();
 
                 criaConcursoNoBanco(orgao, edital, codigo, vagasListFormatadas);
-
-                System.out.println(concursoService.buscaConcursoPorCodigo(codigo).toString());
 
                 break;
             }

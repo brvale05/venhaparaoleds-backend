@@ -24,6 +24,7 @@ public class Candidato
 
     private String cpf;
 
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> profissoes = new ArrayList<>();
 
     public Candidato(String nome, LocalDate dtNasc, String cpf, List<String>profissoes)
