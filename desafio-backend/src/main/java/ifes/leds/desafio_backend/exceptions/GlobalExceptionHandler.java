@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -13,11 +14,11 @@ import java.util.Map;
 public class GlobalExceptionHandler
 {
     @ExceptionHandler(ObjetoNaoEncontradoException.class)
-    public ResponseEntity<Object> ObjetoNaoEncontradoHandler(ObjetoNaoEncontradoException ex)
+    public ResponseEntity<Object> objetoNaoEncontradoHandler(ObjetoNaoEncontradoException ex)
     {
         Map<String, Object> response = new LinkedHashMap<>();
 
-        response.put("timestamp", LocalDateTime.now());
+        response.put("timestamp", LocalDateTime.now(ZoneId.systemDefault()));
         response.put("status", HttpStatus.NOT_FOUND.value());
         response.put("error", "Objeto não encontrado.");
         response.put("message", ex.getMessage());

@@ -1,16 +1,12 @@
 package ifes.leds.desafio_backend.service;
 
 import ifes.leds.desafio_backend.domain.Candidato;
-import ifes.leds.desafio_backend.domain.Concurso;
 import ifes.leds.desafio_backend.dto.response.CandidatoResponseDTO;
 import ifes.leds.desafio_backend.exceptions.ObjetoNaoEncontradoException;
 import ifes.leds.desafio_backend.repository.CandidatoRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class CandidatoService

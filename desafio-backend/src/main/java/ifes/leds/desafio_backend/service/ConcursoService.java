@@ -1,10 +1,8 @@
 package ifes.leds.desafio_backend.service;
 
-import ifes.leds.desafio_backend.domain.Candidato;
 import ifes.leds.desafio_backend.domain.Concurso;
 import ifes.leds.desafio_backend.dto.response.ConcursoResponseDTO;
 import ifes.leds.desafio_backend.exceptions.ObjetoNaoEncontradoException;
-import ifes.leds.desafio_backend.service.CandidatoService;
 import ifes.leds.desafio_backend.repository.ConcursoRepository;
 import org.springframework.stereotype.Service;
 
