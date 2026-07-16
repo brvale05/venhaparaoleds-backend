@@ -42,6 +42,9 @@ public class App implements CommandLineRunner
     {
         leCandidatos();
         leConcursos();
+
+        System.out.println(this.candidatoService.buscaCandidatosPorPerfilConcurso(List.of("marceneiro")));
+        System.out.println(this.concursoService.buscaConcursosPorPerfilCandidato(List.of("engenheiro civil")));
     }
 
     private void leConcursos()
