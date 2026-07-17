@@ -32,6 +32,9 @@ public class ConcursoService
         return concursoRepository.findByCodigo(codigo).orElseThrow(() -> new ObjetoNaoEncontradoException("Nenhum concurso com esse codigo foi encontrado"));
     }
 
+    // Busca número 1 do README:
+    // Listar os órgãos, códigos e editais dos concursos públicos
+    // que se encaixam no perfil do candidato, tomando como base o seu CPF;
     public List<ConcursoResponseDTO> buscaConcursosPorPerfilCandidato(List<String> vagasBuscadas)
     {
         return this.concursoRepository.findDistinctByVagasIn(vagasBuscadas)

@@ -28,8 +28,6 @@ class CandidatoServiceTest
     {
         String cpfInvalido = "123";
 
-        assertThrows(ObjetoNaoEncontradoException.class, () -> {
-            this.candidatoService.buscaCandidatoPorCpf(cpfInvalido);
-        });
+        assertThrows(ObjetoNaoEncontradoException.class, () -> this.candidatoService.buscaCandidatoPorCpf(cpfInvalido));
     }
 }

@@ -32,6 +32,9 @@ public class CandidatoService
         return candidatoRepository.findByCpf(cpf).orElseThrow(() -> new ObjetoNaoEncontradoException("Nenhum candidato com esse CPF foi encontrado"));
     }
 
+    // Busca número 2 do README:
+    // Listar o nome, data de nascimento e o CPF dos candidatos
+    // que se encaixam no perfil do concurso tomando com base o Código do Concurso do concurso público;
     public List<CandidatoResponseDTO> buscaCandidatosPorPerfilConcurso(List<String> profissoesBuscadas)
     {
         return candidatoRepository.findDistinctByProfissoesIn(profissoesBuscadas)

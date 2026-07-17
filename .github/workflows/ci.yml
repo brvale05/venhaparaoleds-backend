@@ -9,14 +9,12 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    
-    # Como o projeto Java está dentro da pasta desafio-backend,
-    # configuramos essa pasta como o diretório padrão para rodar os comandos
+   
     defaults:
       run:
         working-directory: ./desafio-backend
 
-    # Cria um container do PostgreSQL exclusivamente para rodar os testes
+    # Container do PostgreSQL para rodar os testes
     services:
       postgres:
         image: postgres:16-alpine
@@ -41,7 +39,7 @@ jobs:
       with:
         java-version: '21'
         distribution: 'temurin'
-        cache: maven # Faz cache das dependências do Maven para acelerar a pipeline
+        cache: maven 
 
     - name: Dar permissão de execução ao Maven Wrapper
       run: chmod +x mvnw
@@ -49,7 +47,7 @@ jobs:
     - name: Rodar os testes e compilar
       run: ./mvnw clean verify
       env:
-        # Passa as variáveis para a aplicação se conectar ao PostgreSQL do GitHub Actions
+     
         SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/desafio_db
         SPRING_DATASOURCE_USERNAME: postgres
         SPRING_DATASOURCE_PASSWORD: password
