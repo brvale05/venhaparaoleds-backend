@@ -18,11 +18,6 @@ public class CandidatoService
         this.candidatoRepository = candidatoRepository;
     }
 
-    public long count()
-    {
-        return this.candidatoRepository.count();
-    }
-
     public void salvaCandidato(Candidato candidato)
     {
         if (this.candidatoRepository.findByCpf(candidato.getCpf()).isEmpty())

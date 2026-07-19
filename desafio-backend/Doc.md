@@ -17,6 +17,7 @@ Para retornar a busca número 1: http://localhost:8080/api/{STRING_CPF}/concurso
 Para retornar a busca número 2: http://localhost:8080/api/{STRING_CODIGO}/candidatos.
 
 ## COMO RODAR
+Abrir o terminal dentro da pasta desafio-backend e rodar o comando:
 ```bash
 docker compose up -d --build
 ```
@@ -31,10 +32,10 @@ docker logs -f spring_app
 - **Criar um serviço com o problema:** O programa não possui um frontend definido mas criei um RestController para atender requisições HTTPS
   (acredito que tenha sido o suficiente)
 - **Utilizar banco de dados:** Utilizei PostgreSQL para a aplicação e o H2 em memória para rodar os testes
-- **Implementar Clean Code e Padrão de programação da linguagem:** Implementado encapsulamento, nomes de métodos e variáveis seguindo convenção CamelCase,classes com responsabilidades únicas, divisão em camadas (service, controller, repository), etc.
+- **Implementar Clean Code e Padrão de programação da linguagem:** Implementado encapsulamento, 
+nomes de métodos e variáveis seguindo convenção camel case, classes com responsabilidades únicas, divisão em camadas (service, controller, repository), etc.
 - **Qualidade de Código com SonarQube:** O código foi verificado com SonarQube.
 - **Implementar testes unitários:** Pela complexidade baixa do programa foram implementados poucos testes.
-- **Implementar testes comportamentais:** Não foi implementado. Confesso que não conheço esse termo, seria o mesmo que testes de integração?
 - **Implementar integração com Github Action:** Implementado, pasta .github/workflow.
 - **Implementar usando Docker:** Implementado Dockerfile e docker-compose.
 
@@ -43,7 +44,8 @@ Durante a execução do projeto, percebi
 que havia valores duplicados de CPF ou código dos concursos; por 
 consequência, ao buscar alguma dessas entidades por CPF ou código, 
 mais de uma entidade me era retornada. Assumi que não deveriam existir 
-valores duplicados e impedi o salvamento de concursos/candidatos com o mesmo código/CPF.
+valores duplicados e impedi o salvamento de concursos/candidatos com o mesmo código/CPF. Por exemplo: buscando com CTRL-F no arquivo 
+concursos.txt o valor de código: 13385322316, existem 8 concursos com esse mesmo código.
 
 ## MEUS CONTATOS
 - LINKEDIN: www.linkedin.com/in/bruno-vale-lourenco
