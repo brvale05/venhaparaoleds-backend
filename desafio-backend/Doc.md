@@ -6,25 +6,48 @@
 - Docker
 
 ## FLUXO DO PROGRAMA
-O código abre os arquivos "candidatos.txt" e "concursos.txt" 
-para leitura, cria os objetos Candidato e Concurso e os salva no banco de dados. Dois
-metodos sao responsaveis por implementar as buscas definidas na explicacao do desafio. Esses metodos
-estao disponiveis na classe AppController, que abre uma conexao HTTP na url http://localhost:8080/api.
+O código abre os arquivos "candidatos.txt" e "concursos.txt" para leitura, 
+cria os objetos Candidato e Concurso e os salva no banco de dados. 
+Dois métodos são responsáveis por implementar as buscas definidas na 
+explicação do desafio. Esses métodos estão disponíveis na classe AppController, 
+que abre uma conexão HTTP na URL http://localhost:8080/api.
 
-Para retornar a busca numero 1: http://localhost:8080/api/{STRING_CPF}/concursos.
+Para retornar a busca número 1: http://localhost:8080/api/{STRING_CPF}/concursos.
 
-Para retornar a busca numero 2: http://localhost:8080/api/{STRING_CODIGO}/candidatos.
+Para retornar a busca número 2: http://localhost:8080/api/{STRING_CODIGO}/candidatos.
 
 ## COMO RODAR
 ```bash
 docker compose up -d --build
 ```
+Isso sobe a imagem do PostgreSQL para o container e executa a aplicação Maven (inclusive os testes).
 
-Isso sobe a imagem do banco para o container e executa a aplicacao com:
+Para acompanhar os logs da aplicação Spring Boot:
 ```bash
-mvn clean package -DskipTests
+docker logs -f spring_app
 ```
 
-## CONSIDERACOES DE IMPLEMENTACAO
+## DIFERENCIAIS 
+- **Criar um serviço com o problema:** O programa não possui um frontend definido mas criei um RestController para atender requisições HTTPS
+  (acredito que tenha sido o suficiente)
+- **Utilizar banco de dados:** Utilizei PostgreSQL para a aplicação e o H2 em memória para rodar os testes
+- **Implementar Clean Code e Padrão de programação da linguagem:** Implementado encapsulamento, nomes de métodos e variáveis seguindo convenção CamelCase,classes com responsabilidades únicas, divisão em camadas (service, controller, repository), etc.
+- **Qualidade de Código com SonarQube:** O código foi verificado com SonarQube.
+- **Implementar testes unitários:** Pela complexidade baixa do programa foram implementados poucos testes.
+- **Implementar testes comportamentais:** Não foi implementado. Confesso que não conheço esse termo, seria o mesmo que testes de integração?
+- **Implementar integração com Github Action:** Implementado, pasta .github/workflow.
+- **Implementar usando Docker:** Implementado Dockerfile e docker-compose.
+
+## CONSIDERAÇÕES SOBRE A IMPLEMENTAÇÃO
+Durante a execução do projeto, percebi 
+que havia valores duplicados de CPF ou código dos concursos; por 
+consequência, ao buscar alguma dessas entidades por CPF ou código, 
+mais de uma entidade me era retornada. Assumi que não deveriam existir 
+valores duplicados e impedi o salvamento de concursos/candidatos com o mesmo código/CPF.
+
+## MEUS CONTATOS
+- LINKEDIN: www.linkedin.com/in/bruno-vale-lourenco
+- EMAIL: brvale05@gmail.com
+
 
 

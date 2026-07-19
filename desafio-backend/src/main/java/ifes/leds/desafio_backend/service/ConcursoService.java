@@ -18,6 +18,11 @@ public class ConcursoService
         this.concursoRepository = concursoRepository;
     }
 
+    public long count()
+    {
+        return this.concursoRepository.count();
+    }
+
     public void salvaConcurso(Concurso concurso)
     {
         if(this.concursoRepository.findByCodigo(concurso.getCodigo()).isEmpty())
