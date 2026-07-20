@@ -40,12 +40,14 @@ nomes de métodos e variáveis seguindo convenção camel case, classes com resp
 - **Implementar usando Docker:** Implementado Dockerfile e docker-compose.
 
 ## CONSIDERAÇÕES SOBRE A IMPLEMENTAÇÃO
-Durante a execução do projeto, percebi 
+- Durante a execução do projeto, percebi 
 que havia valores duplicados de CPF ou código dos concursos; por 
 consequência, ao buscar alguma dessas entidades por CPF ou código, 
 mais de uma entidade me era retornada. Assumi que não deveriam existir 
 valores duplicados e impedi o salvamento de concursos/candidatos com o mesmo código/CPF. Por exemplo: buscando com CTRL-F no arquivo 
 concursos.txt o valor de código: 13385322316, existem 8 concursos com esse mesmo código.
+
+- Formatei o CPF de modo a deixar apenas os números. Logo, a busca pela URL da API deve conter apenas os números do CPF, sem pontos e traços.
 
 ## MEUS CONTATOS
 - LINKEDIN: www.linkedin.com/in/bruno-vale-lourenco
