@@ -13,8 +13,10 @@ explicação do desafio. Esses métodos estão disponíveis na classe AppControl
 que abre uma conexão HTTP na URL http://localhost:8080/api.
 
 Para retornar a busca número 1: http://localhost:8080/api/{STRING_CPF}/concursos.
+EX: http://localhost:8080/api/43815092698/concursos
 
 Para retornar a busca número 2: http://localhost:8080/api/{STRING_CODIGO}/candidatos.
+EX: http://localhost:8080/api/13385322316/candidatos
 
 ## COMO RODAR
 Abrir o terminal dentro da pasta desafio-backend e rodar o comando:
